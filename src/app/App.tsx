@@ -1,10 +1,7 @@
 import 'normalize.css';
-import { LoginForm } from '@/features/ui/LoginForm';
+import './global.css';
+import { LoginPage } from '@/pages';
 
 export const App = function App() {
-  return (
-    <div>
-      <LoginForm />
-    </div>
-  );
+  return <LoginPage />;
 };
