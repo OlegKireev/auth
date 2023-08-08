@@ -1,0 +1,21 @@
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5em 0.75em;
+  border: 0;
+  border-radius: 0.25em;
+  background-image: var(--main-gradient);
+  background-size: 200% 100%;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-position 0.2s;
+
+  &:hover {
+    background-position: 100% 0;
+  }
+}
+
+.wide {
+  width: 100%;
+}
