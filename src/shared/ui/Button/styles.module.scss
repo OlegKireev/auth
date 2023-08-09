@@ -1,4 +1,18 @@
 .button {
+  @keyframes spin {
+    0% {
+      border-color: #ffffff;
+      border-top-color: transparent;
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    100% {
+      border-color: #ffffff;
+      border-top-color: transparent;
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,10 +23,34 @@
   background-size: 200% 100%;
   color: #ffffff;
   cursor: pointer;
-  transition: background-position 0.2s;
+  transition: background-position 0.2s ease, color 0.1s ease;
 
   &:hover {
     background-position: 100% 0;
+  }
+
+  &.loading {
+    position: relative;
+    color: transparent;
+    cursor: not-allowed;
+
+    &:hover {
+      background-position: initial;
+    }
+  }
+
+  &.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1em;
+    height: 1em;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: spin 1s linear infinite;
   }
 }
 
