@@ -77,6 +77,7 @@ export const LoginForm = function LoginForm({ mode }: LoginFormProps) {
           name="password"
           id="sign-in-password-input"
           autoComplete="current-password"
+          autoCapitalize="off"
           className={styles.input}
         />
         <Link
