@@ -1,8 +1,9 @@
 import { NavLink } from 'react-router-dom';
 import styles from './styles.module.scss';
+import { type NavigationLink } from '@/shared';
 
 interface NavigationProps {
-  links: { url: string; title: string }[];
+  links: NavigationLink[];
 }
 
 export const Navigation = function Navigation({ links }: NavigationProps) {
