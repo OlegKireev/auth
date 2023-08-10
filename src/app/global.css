@@ -32,3 +32,11 @@ h6 {
   white-space: nowrap;
   clip-path: inset(100%);
 }
+
+.container {
+  width: 100%;
+  max-width: 1060px;
+  margin: 0 auto;
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
