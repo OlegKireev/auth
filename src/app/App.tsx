@@ -1,7 +1,7 @@
 import 'normalize.css';
 import './global.css';
-import { LoginPage } from '@/pages';
+import { RouterProvider } from './providers';
 
 export const App = function App() {
-  return <LoginPage />;
+  return <RouterProvider />;
 };
