@@ -1,5 +1,9 @@
-import { type LinkHTMLAttributes, type ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import { clsx } from 'clsx';
+import {
+  Link as RouterLink,
+  type LinkProps as RouterLinkProps,
+} from 'react-router-dom';
 import styles from './styles.module.scss';
 
 interface LinkProps {
@@ -9,13 +13,13 @@ interface LinkProps {
 export const Link = function Link({
   children,
   ...rest
-}: LinkProps & LinkHTMLAttributes<HTMLAnchorElement>) {
+}: LinkProps & RouterLinkProps) {
   return (
-    <a
+    <RouterLink
       {...rest}
       className={clsx(styles.link, rest.className)}
     >
       {children}
-    </a>
+    </RouterLink>
   );
 };
