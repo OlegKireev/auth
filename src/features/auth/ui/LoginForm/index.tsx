@@ -1,4 +1,4 @@
-import { useEffect, type FormEventHandler } from 'react';
+import { type FormEventHandler } from 'react';
 import { clsx } from 'clsx';
 import { useNavigate } from 'react-router-dom';
 import { useLoginMutation } from '../../model';
@@ -6,9 +6,16 @@ import { type LoginServiceParams } from '../../api';
 import styles from './styles.module.scss';
 import { Toggle, Button, Input, Label, Link } from '@/shared';
 
-export const LoginForm = function LoginForm() {
+interface LoginFormProps {
+  mode: 'login' | 'sign-up';
+}
+
+export const LoginForm = function LoginForm({ mode }: LoginFormProps) {
   const { mutate, isLoading, data } = useLoginMutation();
   const navigate = useNavigate();
+
+  const isLoginMode = mode === 'login';
+  const oppositeMode = isLoginMode ? 'sign-up' : 'login';
 
   const handleFormSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
@@ -31,18 +38,17 @@ export const LoginForm = function LoginForm() {
         [styles.success]: Boolean(data?.token),
       })}
     >
-      <h1 className={styles.title}>Login form</h1>
+      <h1 className={styles.title}>{mode} form</h1>
       <Toggle
         className={styles.toggle}
         isWide
         items={[
-          { children: 'Login', id: 'login' },
-          { children: 'Signup', id: 'signup' },
+          { label: 'Login', id: 'login', href: '/login' },
+          { label: 'Sign-up', id: 'sign-up', href: '/sign-up' },
         ]}
-        defaultIndex={0}
       />
       <form
-        action="/sign-in"
+        action={`/${mode}`}
         method="POST"
         onSubmit={handleFormSubmit}
       >
@@ -74,7 +80,7 @@ export const LoginForm = function LoginForm() {
           className={styles.input}
         />
         <Link
-          href="/forgot-password"
+          to="/forgot-password"
           className={styles.forgotLink}
         >
           Forgot password?
@@ -85,10 +91,16 @@ export const LoginForm = function LoginForm() {
           type="submit"
           className={styles.submit}
         >
-          Login
+          {mode}
         </Button>
         <span className={styles.signUpText}>
-          Not a member? <Link href="sign-up">Signup now</Link>
+          {isLoginMode ? 'Not' : 'Already'} a member?{' '}
+          <Link
+            to={`/${oppositeMode}`}
+            className={styles.modeLink}
+          >
+            {oppositeMode} now
+          </Link>
         </span>
       </form>
     </div>

@@ -30,6 +30,10 @@
 .title {
   font-size: 24px;
   text-align: center;
+
+  &::first-letter {
+    text-transform: uppercase;
+  }
 }
 
 .toggle {
@@ -48,6 +52,7 @@
 
 .submit {
   margin-bottom: 1.5rem;
+  text-transform: capitalize;
 }
 
 .label {
@@ -58,4 +63,12 @@
   display: block;
   font-size: 0.875rem;
   text-align: center;
+}
+
+.modeLink {
+  display: inline-block;
+
+  &::first-letter {
+    text-transform: uppercase;
+  }
 }

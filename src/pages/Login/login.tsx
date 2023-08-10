@@ -4,7 +4,7 @@ import { LoginForm } from '@/features/auth';
 export const LoginPage = function LoginPage() {
   return (
     <div className={styles.loginPage}>
-      <LoginForm />
+      <LoginForm mode="login" />
     </div>
   );
 };
