@@ -1,8 +1,42 @@
+.wrapper {
+  position: relative;
+}
+
 .input {
   width: 100%;
   padding: 0.5em 0.75em;
   border: 1px solid #aaaaaa;
   border-radius: 0.125em;
+
+  &.rightPadding {
+    padding-right: 2.5rem;
+  }
+}
+
+.showPassword {
+  position: absolute;
+  top: 50%;
+  right: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  border-radius: 50%;
+  background-color: transparent;
+  color: #666666;
+  cursor: pointer;
+  transform: translateY(-50%);
+
+  &:hover,
+  &:focus-visible {
+    color: #111111;
+  }
+
+  &:active {
+    color: #000000;
+  }
 }
 
 .error {
