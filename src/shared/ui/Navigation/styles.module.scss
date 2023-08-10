@@ -1,0 +1,17 @@
+.list {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.link {
+  display: block;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  color: #e4236a;
+
+  &[aria-current='page'] {
+    color: #9b05b6;
+  }
+}
