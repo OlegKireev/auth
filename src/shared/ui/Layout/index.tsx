@@ -1,5 +1,6 @@
 import { type ReactNode } from 'react';
 import { clsx } from 'clsx';
+import { GithubIcon } from 'lucide-react';
 import styles from './styles.module.scss';
 
 interface LayoutProps {
@@ -35,7 +36,7 @@ export const Layout = function Layout({
           rel="noreferrer"
           href="https://github.com/OlegKireev"
         >
-          https://github.com/OlegKireev
+          <GithubIcon />
         </a>
       </footer>
     </div>
