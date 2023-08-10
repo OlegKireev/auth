@@ -15,6 +15,6 @@ export const loginService = async ({
 }: LoginServiceParams): Promise<LoginServiceResult> => {
   console.log(username, password);
 
-  await delay(2500);
+  await delay(500);
   return Promise.resolve({ token: '123' });
 };

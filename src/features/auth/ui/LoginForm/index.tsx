@@ -1,11 +1,14 @@
-import { type FormEventHandler } from 'react';
+import { useEffect, type FormEventHandler } from 'react';
+import { clsx } from 'clsx';
+import { useNavigate } from 'react-router-dom';
 import { useLoginMutation } from '../../model';
 import { type LoginServiceParams } from '../../api';
 import styles from './styles.module.scss';
 import { Toggle, Button, Input, Label, Link } from '@/shared';
 
 export const LoginForm = function LoginForm() {
-  const { mutate, isLoading } = useLoginMutation();
+  const { mutate, isLoading, data } = useLoginMutation();
+  const navigate = useNavigate();
 
   const handleFormSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
@@ -15,12 +18,19 @@ export const LoginForm = function LoginForm() {
       password: String(formData.get('password')),
     };
     const response = await mutate(authParams);
+    setTimeout(() => {
+      navigate('/', { state: { hasAnimation: true } });
+    }, 500);
     // eslint-disable-next-line no-console
     console.log(response);
   };
 
   return (
-    <div className={styles.loginForm}>
+    <div
+      className={clsx(styles.loginForm, {
+        [styles.success]: Boolean(data?.token),
+      })}
+    >
       <h1 className={styles.title}>Login form</h1>
       <Toggle
         className={styles.toggle}
