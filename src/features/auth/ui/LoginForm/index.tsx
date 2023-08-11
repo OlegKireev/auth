@@ -1,4 +1,4 @@
-import { type FormEventHandler } from 'react';
+import { useState, type FormEventHandler, type ChangeEvent } from 'react';
 import { clsx } from 'clsx';
 import { useNavigate } from 'react-router-dom';
 import { useLoginMutation } from '../../model';
@@ -11,11 +11,32 @@ interface LoginFormProps {
 }
 
 export const LoginForm = function LoginForm({ mode }: LoginFormProps) {
-  const { mutate, isLoading, data, error, isError } = useLoginMutation();
   const navigate = useNavigate();
 
   const isLoginMode = mode === 'login';
   const oppositeMode = isLoginMode ? 'sign-up' : 'login';
+
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [isFormTouching, setIsFormTouching] = useState(false);
+
+  const { mutate, isLoading, data, error, isError } = useLoginMutation({
+    onSettled: () => {
+      setIsFormTouching(false);
+    },
+  });
+
+  const shouldShowError = isError && !isFormTouching;
+
+  const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setIsFormTouching(true);
+    setUsername(e.target.value);
+  };
+
+  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setIsFormTouching(true);
+    setPassword(e.target.value);
+  };
 
   const handleFormSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
@@ -25,6 +46,7 @@ export const LoginForm = function LoginForm({ mode }: LoginFormProps) {
       password: String(formData.get('password')),
     };
     const response = await mutate(authParams);
+    // Wait for animation ends
     setTimeout(() => {
       navigate('/', { state: { hasAnimation: true } });
     }, 500);
@@ -64,8 +86,10 @@ export const LoginForm = function LoginForm({ mode }: LoginFormProps) {
           id="sign-in-login-input"
           placeholder="john@gmail.com"
           autoComplete="username"
-          hasError={isError}
+          hasError={shouldShowError}
           className={styles.input}
+          value={username}
+          onChange={handleUsernameChange}
         />
         <Label
           htmlFor="sign-in-password-input"
@@ -79,10 +103,14 @@ export const LoginForm = function LoginForm({ mode }: LoginFormProps) {
           id="sign-in-password-input"
           autoComplete="current-password"
           autoCapitalize="off"
-          hasError={isError}
+          hasError={shouldShowError}
           className={styles.input}
+          value={password}
+          onChange={handlePasswordChange}
         />
-        {error && <span className={styles.formError}>{error.message}</span>}
+        {shouldShowError && error && (
+          <span className={styles.formError}>{error.message}</span>
+        )}
         <Link
           to="/forgot-password"
           className={styles.forgotLink}
