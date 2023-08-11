@@ -6,6 +6,7 @@ interface UseMutationResult<TData, TVariables> {
   data: TData | undefined;
   isLoading: boolean;
   isError: boolean;
+  error: Error | undefined;
 }
 
 export const useMutation = <TData = unknown, TVariables = void>(
@@ -13,20 +14,23 @@ export const useMutation = <TData = unknown, TVariables = void>(
 ): UseMutationResult<TData, TVariables> => {
   const [data, setData] = useState<TData | undefined>();
   const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
+  const [error, setError] = useState<Error>();
 
   const mutate: MutationFunction<TData, TVariables> = async (
     variables: TVariables,
   ) => {
-    setIsError(false);
+    // eslint-disable-next-line no-undefined
+    setError(undefined);
     setIsLoading(true);
     try {
       const response = await mutationFn(variables);
       setData(response);
       return response;
     } catch (err) {
-      setIsError(true);
-      throw new Error('Downloading error');
+      if (err instanceof Error) {
+        setError(err);
+      }
+      throw err;
     } finally {
       setIsLoading(false);
     }
@@ -36,6 +40,7 @@ export const useMutation = <TData = unknown, TVariables = void>(
     mutate,
     data,
     isLoading,
-    isError,
+    isError: Boolean(error),
+    error,
   };
 };
