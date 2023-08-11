@@ -1,6 +1,5 @@
 import { useState, type FormEventHandler, type ChangeEvent } from 'react';
 import { clsx } from 'clsx';
-import { useNavigate } from 'react-router-dom';
 import { useLoginMutation } from '../../model';
 import { type LoginServiceParams } from '../../api';
 import styles from './styles.module.scss';
@@ -8,24 +7,25 @@ import { Toggle, Button, Input, Label, Link } from '@/shared';
 
 interface LoginFormProps {
   mode: 'login' | 'sign-up';
+  onSuccess: () => void;
 }
 
-export const LoginForm = function LoginForm({ mode }: LoginFormProps) {
-  const navigate = useNavigate();
-
-  const isLoginMode = mode === 'login';
-  const oppositeMode = isLoginMode ? 'sign-up' : 'login';
-
+export const LoginForm = function LoginForm({
+  mode,
+  onSuccess,
+}: LoginFormProps) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isFormTouching, setIsFormTouching] = useState(false);
 
-  const { mutate, isLoading, data, error, isError } = useLoginMutation({
+  const { mutate, data, isLoading, isError, error } = useLoginMutation({
     onSettled: () => {
       setIsFormTouching(false);
     },
   });
 
+  const isLoginMode = mode === 'login';
+  const oppositeMode = isLoginMode ? 'sign-up' : 'login';
   const shouldShowError = isError && !isFormTouching;
 
   const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -46,12 +46,13 @@ export const LoginForm = function LoginForm({ mode }: LoginFormProps) {
       password: String(formData.get('password')),
     };
     const response = await mutate(authParams);
-    // Wait for animation ends
-    setTimeout(() => {
-      navigate('/', { state: { hasAnimation: true } });
-    }, 500);
-    // eslint-disable-next-line no-console
-    console.log(response);
+
+    if (response.token) {
+      // Wait for animation ends
+      setTimeout(() => {
+        onSuccess();
+      }, 500);
+    }
   };
 
   return (
