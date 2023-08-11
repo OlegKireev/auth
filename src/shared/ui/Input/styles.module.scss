@@ -11,6 +11,10 @@
   &.rightPadding {
     padding-right: 2.5rem;
   }
+
+  &.hasError {
+    color: #ff6347;
+  }
 }
 
 .showPassword {

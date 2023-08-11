@@ -11,7 +11,7 @@ interface LoginFormProps {
 }
 
 export const LoginForm = function LoginForm({ mode }: LoginFormProps) {
-  const { mutate, isLoading, data } = useLoginMutation();
+  const { mutate, isLoading, data, error, isError } = useLoginMutation();
   const navigate = useNavigate();
 
   const isLoginMode = mode === 'login';
@@ -64,6 +64,7 @@ export const LoginForm = function LoginForm({ mode }: LoginFormProps) {
           id="sign-in-login-input"
           placeholder="john@gmail.com"
           autoComplete="username"
+          hasError={isError}
           className={styles.input}
         />
         <Label
@@ -78,8 +79,10 @@ export const LoginForm = function LoginForm({ mode }: LoginFormProps) {
           id="sign-in-password-input"
           autoComplete="current-password"
           autoCapitalize="off"
+          hasError={isError}
           className={styles.input}
         />
+        {error && <span className={styles.formError}>{error.message}</span>}
         <Link
           to="/forgot-password"
           className={styles.forgotLink}
