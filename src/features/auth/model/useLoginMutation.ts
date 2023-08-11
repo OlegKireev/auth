@@ -3,10 +3,13 @@ import {
   loginService,
   type LoginServiceParams,
 } from '../api';
-import { useMutation } from '@/shared';
+import { type MutationOptions, useMutation } from '@/shared';
 
-export const useLoginMutation = () => {
-  return useMutation<LoginServiceResult, LoginServiceParams>((params) =>
-    loginService(params),
+export const useLoginMutation = (
+  options?: MutationOptions<LoginServiceResult>,
+) => {
+  return useMutation<LoginServiceResult, LoginServiceParams>(
+    (params) => loginService(params),
+    options,
   );
 };

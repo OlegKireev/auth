@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { type MutationFunction } from '..';
+import { type MutationOptions, type MutationFunction } from '..';
 
 interface UseMutationResult<TData, TVariables> {
   mutate: MutationFunction<TData, TVariables>;
@@ -11,6 +11,7 @@ interface UseMutationResult<TData, TVariables> {
 
 export const useMutation = <TData = unknown, TVariables = void>(
   mutationFn: MutationFunction<TData, TVariables>,
+  options?: MutationOptions<TData>,
 ): UseMutationResult<TData, TVariables> => {
   const [data, setData] = useState<TData | undefined>();
   const [isLoading, setIsLoading] = useState(false);
@@ -32,6 +33,7 @@ export const useMutation = <TData = unknown, TVariables = void>(
       }
       throw err;
     } finally {
+      options?.onSettled(data);
       setIsLoading(false);
     }
   };
