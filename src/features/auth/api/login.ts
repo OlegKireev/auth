@@ -20,7 +20,7 @@ const USERS_DB: LoginServiceParams[] = [
   },
 ];
 
-const loginController = async (
+const mockLoginController = async (
   user: LoginServiceParams,
 ): Promise<LoginServiceResult> => {
   const foundUser = USERS_DB.find(
@@ -42,6 +42,6 @@ const loginController = async (
 export const loginService = async (
   user: LoginServiceParams,
 ): Promise<LoginServiceResult> => {
-  const response = await loginController(user);
+  const response = await mockLoginController(user);
   return response;
 };
