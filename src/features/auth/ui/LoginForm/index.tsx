@@ -1,6 +1,6 @@
 import { useState, type FormEventHandler, type ChangeEvent } from 'react';
 import { clsx } from 'clsx';
-import { useLoginMutation } from '../../model';
+import { useLoginMutation, useSignUpMutation } from '../../model';
 import { type LoginServiceParams } from '../../api';
 import styles from './styles.module.scss';
 import { Toggle, Button, Input, Label, Link } from '@/shared';
@@ -18,15 +18,22 @@ export const LoginForm = function LoginForm({
   const [password, setPassword] = useState('');
   const [isFormTouching, setIsFormTouching] = useState(false);
 
-  const { mutate, data, isLoading, isError, error } = useLoginMutation({
+  const loginMutation = useLoginMutation({
+    onSettled: () => {
+      setIsFormTouching(false);
+    },
+  });
+
+  const signUpMutation = useSignUpMutation({
     onSettled: () => {
       setIsFormTouching(false);
     },
   });
 
   const isLoginMode = mode === 'login';
+  const mutation = isLoginMode ? loginMutation : signUpMutation;
   const oppositeMode = isLoginMode ? 'sign-up' : 'login';
-  const shouldShowError = isError && !isFormTouching;
+  const shouldShowError = mutation.isError && !isFormTouching;
 
   const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setIsFormTouching(true);
@@ -45,9 +52,9 @@ export const LoginForm = function LoginForm({
       username: String(formData.get('username')),
       password: String(formData.get('password')),
     };
-    const response = await mutate(authParams);
+    const response = await mutation.mutate(authParams);
 
-    if (response.token) {
+    if (response.uid) {
       // Wait for animation ends
       setTimeout(() => {
         onSuccess();
@@ -58,7 +65,7 @@ export const LoginForm = function LoginForm({
   return (
     <div
       className={clsx(styles.loginForm, {
-        [styles.success]: Boolean(data?.token),
+        [styles.success]: Boolean(mutation.data?.uid),
       })}
     >
       <h1 className={styles.title}>{mode} form</h1>
@@ -109,8 +116,8 @@ export const LoginForm = function LoginForm({
           value={password}
           onChange={handlePasswordChange}
         />
-        {shouldShowError && error && (
-          <span className={styles.formError}>{error.message}</span>
+        {shouldShowError && mutation.error && (
+          <span className={styles.formError}>{mutation.error.message}</span>
         )}
         <Link
           to="/forgot-password"
@@ -120,7 +127,7 @@ export const LoginForm = function LoginForm({
         </Link>
         <Button
           isWide
-          isLoading={isLoading}
+          isLoading={mutation.isLoading}
           type="submit"
           className={styles.submit}
         >
