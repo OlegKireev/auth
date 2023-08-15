@@ -1,6 +1,7 @@
 import 'normalize.css';
 import './global.css';
 import { RouterProvider } from './providers';
+import './providers/firebase';
 
 export const App = function App() {
   return <RouterProvider />;
