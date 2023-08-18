@@ -20,7 +20,6 @@ export const useMutation = <TData = unknown, TVariables = void>(
   const mutate: MutationFunction<TData, TVariables> = async (
     variables: TVariables,
   ) => {
-    // eslint-disable-next-line no-undefined
     setError(undefined);
     setIsLoading(true);
     try {

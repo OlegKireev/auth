@@ -8,5 +8,8 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+    'no-undefined': [
+      'off',
+    ],
   },
 }

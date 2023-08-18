@@ -15,7 +15,6 @@ interface AuthContextType {
   logout: () => void;
 }
 
-// eslint-disable-next-line no-undefined
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 interface AuthProviderProps {
