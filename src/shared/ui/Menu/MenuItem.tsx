@@ -1,4 +1,5 @@
 import { useRef, type ReactNode, type HTMLProps, type MouseEvent } from 'react';
+import { clsx } from 'clsx';
 import styles from './styles.module.scss';
 import { useMenuContext } from './MenuContext';
 
@@ -23,7 +24,6 @@ export const MenuItem = function MenuItem({
   };
 
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
-    console.log(ref.current?.dataset.index);
     handleMenuClose();
     if (rest.onClick) {
       rest.onClick(e);
@@ -33,7 +33,8 @@ export const MenuItem = function MenuItem({
   return (
     <li role="menuitem">
       <button
-        className={styles.menuItemButton}
+        {...rest}
+        className={clsx(styles.menuItemButton, rest.className)}
         type="button"
         ref={ref}
         onMouseEnter={handleMouseEnter}
