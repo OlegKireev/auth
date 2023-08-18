@@ -1,13 +1,10 @@
 import { useState, type FormEventHandler, type ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  useAuthContext,
-  useLoginMutation,
-  useSignUpMutation,
-} from '../../model';
+import { useLoginMutation, useSignUpMutation } from '../../model';
 import { type LoginServiceParams } from '../../api';
 import styles from './styles.module.scss';
 import { Toggle, Button, Input, Label, Link } from '@/shared';
+import { useAuthContext } from '@/entities/user';
 
 interface LoginFormProps {
   mode: 'login' | 'sign-up';

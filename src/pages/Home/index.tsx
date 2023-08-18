@@ -1,6 +1,6 @@
 import { MainNavigation } from '@/features/app-navigation';
+import { useAuthContext } from '@/entities/user';
 import { Layout, Page } from '@/shared';
-import { useAuthContext } from '@/features';
 
 export const HomePage = function HomePage() {
   const { isLoggedIn } = useAuthContext();

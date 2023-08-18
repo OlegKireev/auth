@@ -1,5 +1,5 @@
-import { useAuthContext } from '@/features';
 import { MainNavigation } from '@/features/app-navigation';
+import { useAuthContext } from '@/entities/user';
 import { Layout, Page } from '@/shared';
 
 export const ContactsPage = function ContactsPage() {

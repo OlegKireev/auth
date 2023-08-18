@@ -6,7 +6,7 @@ import {
   type FC,
 } from 'react';
 import { getAuth, signOut } from 'firebase/auth';
-import { type User } from '@/entities/user';
+import { type User } from '../types';
 
 interface AuthContextType {
   user: User | null;
