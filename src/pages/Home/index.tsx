@@ -1,19 +1,20 @@
-import { useLocation } from 'react-router-dom';
 import { MainNavigation } from '@/features/app-navigation';
-import { Layout } from '@/shared';
+import { Layout, Page } from '@/shared';
+import { useAuthContext } from '@/features';
 
 export const HomePage = function HomePage() {
-  const { state } = useLocation();
-  const hasAnimation = Boolean(state) && 'hasAnimation' in state;
+  const { isLoggedIn } = useAuthContext();
 
   return (
-    <Layout
-      navigation={<MainNavigation />}
-      hasAnimation={hasAnimation}
+    <Page
+      isLoggedIn={isLoggedIn}
+      type="private"
     >
-      <div>
-        <h1>Welcome!</h1>
-      </div>
-    </Layout>
+      <Layout navigation={<MainNavigation />}>
+        <div>
+          <h1>Welcome!</h1>
+        </div>
+      </Layout>
+    </Page>
   );
 };

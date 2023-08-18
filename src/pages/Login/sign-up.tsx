@@ -1,20 +1,18 @@
-import { useNavigate } from 'react-router-dom';
 import styles from './styles.module.scss';
-import { LoginForm } from '@/features/auth';
+import { LoginForm, useAuthContext } from '@/features/auth';
+import { Page } from '@/shared';
 
 export const SignUpPage = function SignUpPage() {
-  const navigate = useNavigate();
-
-  const handleSignUpSuccess = () => {
-    navigate('/', { state: { hasAnimation: true } });
-  };
+  const { isLoggedIn } = useAuthContext();
 
   return (
-    <div className={styles.loginPage}>
-      <LoginForm
-        mode="sign-up"
-        onSuccess={handleSignUpSuccess}
-      />
-    </div>
+    <Page
+      isLoggedIn={isLoggedIn}
+      type="public"
+    >
+      <div className={styles.loginPage}>
+        <LoginForm mode="sign-up" />
+      </div>
+    </Page>
   );
 };
