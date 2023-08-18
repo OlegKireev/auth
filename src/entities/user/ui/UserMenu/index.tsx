@@ -1,4 +1,4 @@
-import { LogOutIcon } from 'lucide-react';
+import { LogOutIcon, UserIcon } from 'lucide-react';
 import { type User } from '../../types';
 import styles from './styles.module.scss';
 import { Menu, MenuButton, MenuItem, MenuList } from '@/shared';
@@ -16,6 +16,13 @@ export const UserMenu = function UserMenu({
     <Menu>
       <MenuButton>{user?.email || 'Не вошел'}</MenuButton>
       <MenuList>
+        <MenuItem
+          className={styles.menuItem}
+          as="link"
+          to="/profile"
+        >
+          Profile <UserIcon size={16} />
+        </MenuItem>
         <MenuItem
           className={styles.menuItem}
           onClick={onLogoutClick}

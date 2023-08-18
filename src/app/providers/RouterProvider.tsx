@@ -10,6 +10,7 @@ import {
   ContactsPage,
   SignUpPage,
   PageNotFound,
+  ProfilePage,
 } from '@/pages';
 
 const PRIVATE_ROUTES: RouteObject[] = [
@@ -25,6 +26,10 @@ const PRIVATE_ROUTES: RouteObject[] = [
   {
     path: '/contacts',
     element: <ContactsPage />,
+  },
+  {
+    path: '/profile',
+    element: <ProfilePage />,
   },
 ];
 
