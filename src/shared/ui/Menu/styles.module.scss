@@ -12,10 +12,16 @@
   border: 0;
   border-radius: 0.375em;
   white-space: nowrap;
-  background-color: var(--color-gray-100);
+  background-color: var(--color-white);
   color: var(--color-gray-800);
   outline-offset: 1px;
   cursor: pointer;
+  transition: background-color 0.1s ease;
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--color-gray-100);
+  }
 }
 
 .menuButtonChevron {
