@@ -5,6 +5,11 @@
 :root {
   --main-gradient: linear-gradient(to left, #9b05b6, #e4236a);
   --main-gradient-reverse: linear-gradient(to right, #9b05b6, #e4236a);
+  --color-white: #ffffff;
+  --color-gray-100: #edf2f7;
+  --color-gray-200: #e2e8f0;
+  --color-gray-800: #1a202c;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
 html {

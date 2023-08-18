@@ -1,0 +1,58 @@
+.menu {
+  position: relative;
+  display: inline-flex;
+  min-width: 5rem;
+}
+
+.menuButton {
+  display: flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: 0.5em 1em;
+  border: 0;
+  border-radius: 0.375em;
+  white-space: nowrap;
+  background-color: var(--color-gray-100);
+  color: var(--color-gray-800);
+  outline-offset: 1px;
+  cursor: pointer;
+}
+
+.menuButtonChevron {
+  margin-left: 0.25em;
+  transition: transform 0.1s ease;
+
+  &.rotate {
+    transform: rotate(180deg);
+  }
+}
+
+.menuList {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  z-index: 1;
+  min-width: 100%;
+  margin: 0;
+  padding: 0.5rem 0;
+  border: 1px solid var(--color-gray-200);
+  border-radius: 0.375em;
+  background-color: var(--color-white);
+  box-shadow: var(--shadow-sm);
+  list-style: none;
+}
+
+.menuItemButton {
+  width: 100%;
+  padding: 0.375em 0.75em;
+  border: 0;
+  text-align: left;
+  background-color: transparent;
+  outline-offset: 1px;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--color-gray-100);
+  }
+}
