@@ -4,4 +4,5 @@ export * from './Label';
 export * from './Layout';
 export * from './Link';
 export * from './Navigation';
+export * from './Page';
 export * from './Toggle';
