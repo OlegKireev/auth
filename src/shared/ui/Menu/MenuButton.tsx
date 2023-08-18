@@ -9,13 +9,16 @@ interface MenuButtonProps {
 }
 
 export const MenuButton = function MenuButton({ children }: MenuButtonProps) {
-  const { isOpen, handleMenuToggle } = useMenuContext();
+  const { id, isOpen, handleMenuToggle } = useMenuContext();
 
   return (
     <button
       className={styles.menuButton}
       type="button"
+      aria-haspopup="menu"
       aria-expanded={isOpen}
+      id={`menu-button-${id}`}
+      aria-controls={`menu-list-${id}`}
       onClick={handleMenuToggle}
     >
       {children}

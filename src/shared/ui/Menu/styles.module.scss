@@ -20,6 +20,7 @@
 
 .menuButtonChevron {
   margin-left: 0.25em;
+  pointer-events: none;
   transition: transform 0.1s ease;
 
   &.rotate {
@@ -52,7 +53,8 @@
   cursor: pointer;
 
   &:hover,
-  &:focus-visible {
-    background-color: var(--color-gray-100);
+  &:focus {
+    background-color: var(--color-gray-200);
+    outline: none;
   }
 }
