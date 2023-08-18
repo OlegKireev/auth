@@ -1,19 +1,21 @@
 import { useState, type FormEventHandler, type ChangeEvent } from 'react';
-import { clsx } from 'clsx';
-import { useLoginMutation, useSignUpMutation } from '../../model';
+import { useNavigate } from 'react-router-dom';
+import {
+  useAuthContext,
+  useLoginMutation,
+  useSignUpMutation,
+} from '../../model';
 import { type LoginServiceParams } from '../../api';
 import styles from './styles.module.scss';
 import { Toggle, Button, Input, Label, Link } from '@/shared';
 
 interface LoginFormProps {
   mode: 'login' | 'sign-up';
-  onSuccess: () => void;
 }
 
-export const LoginForm = function LoginForm({
-  mode,
-  onSuccess,
-}: LoginFormProps) {
+export const LoginForm = function LoginForm({ mode }: LoginFormProps) {
+  const { login } = useAuthContext();
+  const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isFormTouching, setIsFormTouching] = useState(false);
@@ -55,19 +57,13 @@ export const LoginForm = function LoginForm({
     const response = await mutation.mutate(authParams);
 
     if (response.uid) {
-      // Wait for animation ends
-      setTimeout(() => {
-        onSuccess();
-      }, 500);
+      await login(response);
+      navigate('/');
     }
   };
 
   return (
-    <div
-      className={clsx(styles.loginForm, {
-        [styles.success]: Boolean(mutation.data?.uid),
-      })}
-    >
+    <div className={styles.loginForm}>
       <h1 className={styles.title}>{mode} form</h1>
       <Toggle
         className={styles.toggle}
@@ -89,7 +85,7 @@ export const LoginForm = function LoginForm({
           E-mail
         </Label>
         <Input
-          type="text"
+          type="email"
           name="username"
           id="sign-in-login-input"
           placeholder="john@gmail.com"
