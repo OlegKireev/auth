@@ -16,6 +16,10 @@ html {
   font-family: Poppins, Helvetica, Arial, sans-serif;
 }
 
+body {
+  background-color: var(--color-gray-100);
+}
+
 h1,
 h2,
 h3,
