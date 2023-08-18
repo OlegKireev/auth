@@ -17,8 +17,9 @@ export const useAccessability = () => {
   // set all items to the MenuContext
   useEffect(() => {
     if (isOpen && listRef?.current) {
-      const buttons =
-        listRef.current.querySelectorAll<HTMLButtonElement>('li > button');
+      const buttons = listRef.current.querySelectorAll<
+        HTMLButtonElement | HTMLAnchorElement
+      >('li > button, li > a');
       setItems(buttons);
     }
   }, [isOpen, listRef, setItems]);

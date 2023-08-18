@@ -18,8 +18,8 @@ export const MenuList = function MenuList({
   useAccessability();
 
   const handleMouseLeave = (e: MouseEvent<HTMLUListElement>) => {
+    resetFocusedItem();
     if (rest.onMouseLeave) {
-      resetFocusedItem();
       rest.onMouseLeave(e);
     }
   };

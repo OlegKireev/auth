@@ -15,10 +15,16 @@ import {
 interface MenuContextValue {
   id: string;
   isOpen: boolean;
-  items: NodeListOf<HTMLButtonElement> | undefined;
-  setItems: Dispatch<SetStateAction<NodeListOf<HTMLButtonElement> | undefined>>;
-  focusedItem: HTMLButtonElement | undefined;
-  setFocusedItem: Dispatch<SetStateAction<HTMLButtonElement | undefined>>;
+  items: NodeListOf<HTMLButtonElement | HTMLAnchorElement> | undefined;
+  setItems: Dispatch<
+    SetStateAction<
+      NodeListOf<HTMLButtonElement | HTMLAnchorElement> | undefined
+    >
+  >;
+  focusedItem: HTMLButtonElement | HTMLAnchorElement | undefined;
+  setFocusedItem: Dispatch<
+    SetStateAction<HTMLButtonElement | HTMLAnchorElement | undefined>
+  >;
   listRef: RefObject<HTMLUListElement>;
   buttonRef: RefObject<HTMLButtonElement>;
   handleMenuToggle: () => void;
@@ -43,8 +49,11 @@ const MenuContext = createContext<MenuContextValue>({
 export const MenuContextProvider: FC<PropsWithChildren> =
   function MenuContextProvider({ children }) {
     const [isOpen, setIsOpen] = useState(false);
-    const [items, setItems] = useState<NodeListOf<HTMLButtonElement>>();
-    const [focusedItem, setFocusedItem] = useState<HTMLButtonElement>();
+    const [items, setItems] =
+      useState<NodeListOf<HTMLButtonElement | HTMLAnchorElement>>();
+    const [focusedItem, setFocusedItem] = useState<
+      HTMLButtonElement | HTMLAnchorElement
+    >();
 
     const id = useId();
 
