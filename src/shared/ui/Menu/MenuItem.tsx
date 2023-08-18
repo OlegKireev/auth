@@ -35,7 +35,6 @@ export const MenuItem = function MenuItem({
       <button
         className={styles.menuItemButton}
         type="button"
-        tabIndex={-1}
         ref={ref}
         onMouseEnter={handleMouseEnter}
         onClick={handleClick}

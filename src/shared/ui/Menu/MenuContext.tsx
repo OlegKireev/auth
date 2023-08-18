@@ -20,20 +20,24 @@ interface MenuContextValue {
   focusedItem: HTMLButtonElement | undefined;
   setFocusedItem: Dispatch<SetStateAction<HTMLButtonElement | undefined>>;
   listRef: RefObject<HTMLUListElement>;
+  buttonRef: RefObject<HTMLButtonElement>;
   handleMenuToggle: () => void;
   handleMenuClose: () => void;
+  resetFocusedItem: () => void;
 }
 
 const MenuContext = createContext<MenuContextValue>({
   id: '',
   isOpen: false,
+  listRef: createRef(),
+  buttonRef: createRef(),
   items: undefined,
   focusedItem: undefined,
   setFocusedItem: () => {},
-  listRef: createRef(),
   setItems: () => {},
   handleMenuToggle: () => {},
   handleMenuClose: () => {},
+  resetFocusedItem: () => {},
 });
 
 export const MenuContextProvider: FC<PropsWithChildren> =
@@ -45,6 +49,12 @@ export const MenuContextProvider: FC<PropsWithChildren> =
     const id = useId();
 
     const listRef = useRef<HTMLUListElement>(null);
+    const buttonRef = useRef<HTMLButtonElement>(null);
+
+    const resetFocusedItem = () => {
+      focusedItem?.blur();
+      setFocusedItem(undefined);
+    };
 
     const handleMenuClose = () => {
       if (isOpen) {
@@ -61,11 +71,13 @@ export const MenuContextProvider: FC<PropsWithChildren> =
         value={{
           id,
           isOpen,
-          items,
-          focusedItem,
           listRef,
-          setFocusedItem,
+          buttonRef,
+          items,
           setItems,
+          focusedItem,
+          setFocusedItem,
+          resetFocusedItem,
           handleMenuToggle,
           handleMenuClose,
         }}

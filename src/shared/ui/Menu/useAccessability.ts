@@ -23,14 +23,14 @@ export const useAccessability = () => {
     }
   }, [isOpen, listRef, setItems]);
 
-  // Reset a focused item on menu close
+  // reset a focused item on menu close
   useEffect(() => {
     if (!isOpen) {
       setFocusedItem(undefined);
     }
   }, [isOpen, setFocusedItem]);
 
-  // Focus the first item on menu open
+  // focus the first item on menu open
   useEffect(() => {
     if (isOpen && items?.length) {
       setFocusedItem(items[0]);

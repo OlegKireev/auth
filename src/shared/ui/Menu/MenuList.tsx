@@ -1,4 +1,5 @@
 import { type ReactNode } from 'react';
+import ReactFocusLock from 'react-focus-lock';
 import styles from './styles.module.scss';
 import { useMenuContext } from './MenuContext';
 import { useAccessability } from './useAccessability';
@@ -8,7 +9,7 @@ interface MenuListProps {
 }
 
 export const MenuList = function MenuList({ children }: MenuListProps) {
-  const { id, listRef, isOpen } = useMenuContext();
+  const { id, listRef, isOpen, resetFocusedItem } = useMenuContext();
 
   useAccessability();
 
@@ -17,14 +18,17 @@ export const MenuList = function MenuList({ children }: MenuListProps) {
   }
 
   return (
-    <ul
-      className={styles.menuList}
-      role="menu"
-      aria-orientation="vertical"
-      ref={listRef}
-      id={`menu-list-${id}`}
-    >
-      {children}
-    </ul>
+    <ReactFocusLock returnFocus>
+      <ul
+        className={styles.menuList}
+        role="menu"
+        aria-orientation="vertical"
+        ref={listRef}
+        onMouseLeave={resetFocusedItem}
+        id={`menu-list-${id}`}
+      >
+        {children}
+      </ul>
+    </ReactFocusLock>
   );
 };
