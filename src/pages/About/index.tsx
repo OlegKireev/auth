@@ -3,10 +3,11 @@ import { useAuthContext } from '@/entities/user';
 import { Layout, Page } from '@/shared';
 
 export const AboutPage = function AboutPage() {
-  const { isLoggedIn } = useAuthContext();
+  const { isLoggedIn, isProfileLoaded } = useAuthContext();
   return (
     <Page
       isLoggedIn={isLoggedIn}
+      isLoading={!isProfileLoaded}
       type="private"
     >
       <Layout navigation={<MainNavigation />}>

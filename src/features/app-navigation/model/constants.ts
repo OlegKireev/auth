@@ -13,8 +13,4 @@ export const LINKS: NavigationLink[] = [
     url: '/contacts',
     title: 'Contacts',
   },
-  {
-    url: '/login',
-    title: 'Login',
-  },
 ];

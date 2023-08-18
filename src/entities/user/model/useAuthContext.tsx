@@ -5,12 +5,13 @@ import {
   useState,
   type FC,
 } from 'react';
-import { getAuth, signOut } from 'firebase/auth';
+import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 import { type User } from '../types';
 
 interface AuthContextType {
   user: User | null;
   isLoggedIn: boolean;
+  isProfileLoaded: boolean;
   login: (userData: User) => void;
   logout: () => void;
 }
@@ -25,8 +26,8 @@ export const AuthProvider: FC<AuthProviderProps> = function AuthProvider({
   children,
 }) {
   const auth = getAuth();
-
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>(auth.currentUser || null);
+  const [isProfileLoaded, setIsProfileLoaded] = useState(false);
 
   const login = (userData: User) => {
     setUser(userData);
@@ -35,11 +36,22 @@ export const AuthProvider: FC<AuthProviderProps> = function AuthProvider({
   const logout = async () => {
     await signOut(auth);
     setUser(null);
+    setIsProfileLoaded(true);
   };
+
+  onAuthStateChanged(auth, async (userData) => {
+    if (userData) {
+      setUser(userData);
+      setIsProfileLoaded(true);
+    } else {
+      logout();
+    }
+  });
 
   const contextValue: AuthContextType = {
     user,
-    isLoggedIn: Boolean(user?.getIdToken()),
+    isLoggedIn: isProfileLoaded && Boolean(user?.getIdToken()),
+    isProfileLoaded,
     login,
     logout,
   };
