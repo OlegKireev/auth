@@ -3,17 +3,39 @@
 }
 
 :root {
-  --main-gradient: linear-gradient(to left, #9b05b6, #e4236a);
-  --main-gradient-reverse: linear-gradient(to right, #9b05b6, #e4236a);
   --color-white: #ffffff;
   --color-black: #000000;
+  --color-gray-50: #f7fafc;
   --color-gray-100: #edf2f7;
   --color-gray-200: #e2e8f0;
+  --color-gray-300: #cbd5e0;
   --color-gray-400: #a0aec0;
   --color-gray-500: #718096;
+  --color-gray-600: #4a5568;
+  --color-gray-700: #2d3748;
   --color-gray-800: #1a202c;
   --color-gray-900: #171923;
+  --color-blue-50: #ebf8ff;
+  --color-blue-100: #bee3f8;
+  --color-blue-200: #90cdf4;
+  --color-blue-300: #63b3ed;
+  --color-blue-400: #4299e1;
+  --color-blue-500: #3182ce;
+  --color-blue-600: #2b6cb0;
+  --color-blue-700: #2c5282;
+  --color-blue-800: #2a4365;
+  --color-blue-900: #1a365d;
   --color-red-600: #c53030;
+  --main-gradient: linear-gradient(
+    to left,
+    var(--color-blue-500),
+    var(--color-blue-600)
+  );
+  --main-gradient-reverse: linear-gradient(
+    to left,
+    var(--color-blue-600),
+    var(--color-blue-500)
+  );
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 

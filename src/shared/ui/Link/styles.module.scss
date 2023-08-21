@@ -1,4 +1,13 @@
 .link {
   text-decoration: none;
-  color: #c10c88;
+  color: var(--color-blue-600);
+
+  &:hover,
+  &:focus-visible {
+    color: var(--color-blue-700);
+  }
+
+  &:active {
+    color: var(--color-blue-800);
+  }
 }

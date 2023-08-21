@@ -9,15 +9,15 @@
   display: block;
   padding: 0.5em 1em;
   text-decoration: none;
-  color: #e4236a;
+  color: var(--color-blue-600);
 
   &:hover,
   &:focus-visible {
-    color: #9b05b6;
+    color: var(--color-blue-700);
   }
 
   &[aria-current='page'] {
-    border-bottom: 2px solid #9b05b6;
-    color: #9b05b6;
+    border-bottom: 2px solid var(--color-blue-700);
+    color: var(--color-blue-700);
   }
 }
