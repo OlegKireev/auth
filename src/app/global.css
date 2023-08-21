@@ -6,9 +6,14 @@
   --main-gradient: linear-gradient(to left, #9b05b6, #e4236a);
   --main-gradient-reverse: linear-gradient(to right, #9b05b6, #e4236a);
   --color-white: #ffffff;
+  --color-black: #000000;
   --color-gray-100: #edf2f7;
   --color-gray-200: #e2e8f0;
+  --color-gray-400: #a0aec0;
+  --color-gray-500: #718096;
   --color-gray-800: #1a202c;
+  --color-gray-900: #171923;
+  --color-red-600: #c53030;
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 

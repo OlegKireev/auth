@@ -1,10 +1,17 @@
-import { useState, type FormEventHandler, type ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLoginMutation, useSignUpMutation } from '../../model';
-import { type LoginServiceParams } from '../../api';
+import { useLoginForm } from '../../model/useLoginForm';
 import styles from './styles.module.scss';
-import { Toggle, Button, Input, Label, Link } from '@/shared';
 import { useAuthContext } from '@/entities/user';
+import {
+  Toggle,
+  Button,
+  Input,
+  FormLabel,
+  FormControl,
+  FormError,
+  Link,
+} from '@/shared';
 
 interface LoginFormProps {
   mode: 'login' | 'sign-up';
@@ -13,51 +20,26 @@ interface LoginFormProps {
 export const LoginForm = function LoginForm({ mode }: LoginFormProps) {
   const { login } = useAuthContext();
   const navigate = useNavigate();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [isFormTouching, setIsFormTouching] = useState(false);
 
   const loginMutation = useLoginMutation({
-    onSettled: () => {
-      setIsFormTouching(false);
+    onSuccess: async (userResponse) => {
+      await login(userResponse);
+      navigate('/');
     },
   });
 
   const signUpMutation = useSignUpMutation({
-    onSettled: () => {
-      setIsFormTouching(false);
+    onSuccess: async (userResponse) => {
+      await login(userResponse);
+      navigate('/');
     },
   });
 
   const isLoginMode = mode === 'login';
   const mutation = isLoginMode ? loginMutation : signUpMutation;
   const oppositeMode = isLoginMode ? 'sign-up' : 'login';
-  const shouldShowError = mutation.isError && !isFormTouching;
 
-  const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setIsFormTouching(true);
-    setUsername(e.target.value);
-  };
-
-  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setIsFormTouching(true);
-    setPassword(e.target.value);
-  };
-
-  const handleFormSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const authParams: LoginServiceParams = {
-      username: String(formData.get('username')),
-      password: String(formData.get('password')),
-    };
-    const response = await mutation.mutate(authParams);
-
-    if (response.uid) {
-      await login(response);
-      navigate('/');
-    }
-  };
+  const { form, handleInputChange } = useLoginForm({ mutation });
 
   return (
     <div className={styles.loginForm}>
@@ -73,45 +55,68 @@ export const LoginForm = function LoginForm({ mode }: LoginFormProps) {
       <form
         action={`/${mode}`}
         method="POST"
-        onSubmit={handleFormSubmit}
+        onSubmit={form.handleSubmit}
+        noValidate
       >
-        <Label
-          htmlFor="sign-in-username-input"
-          className={styles.label}
+        <FormControl
+          isInvalid={
+            Boolean(form.errors.username) && Boolean(form.touched.username)
+          }
         >
-          E-mail
-        </Label>
-        <Input
-          type="email"
-          name="username"
-          id="sign-in-login-input"
-          placeholder="john@gmail.com"
-          autoComplete="username"
-          hasError={shouldShowError}
-          className={styles.input}
-          value={username}
-          onChange={handleUsernameChange}
-        />
-        <Label
-          htmlFor="sign-in-password-input"
-          className={styles.label}
+          <FormLabel
+            htmlFor="sign-in-username-input"
+            className={styles.label}
+          >
+            E-mail
+          </FormLabel>
+          <Input
+            type="email"
+            name="username"
+            id="sign-in-username-input"
+            placeholder="john@gmail.com"
+            autoComplete="username"
+            hasError={
+              Boolean(form.errors.username) && Boolean(form.touched.username)
+            }
+            className={styles.input}
+            value={form.values.username}
+            onBlur={form.handleBlur}
+            onChange={handleInputChange}
+          />
+          <FormError className={styles.inputError}>
+            {form.errors.username}
+          </FormError>
+        </FormControl>
+        <FormControl
+          isInvalid={
+            Boolean(form.errors.password) && Boolean(form.touched.password)
+          }
         >
-          Password
-        </Label>
-        <Input
-          type="password"
-          name="password"
-          id="sign-in-password-input"
-          autoComplete="current-password"
-          autoCapitalize="off"
-          hasError={shouldShowError}
-          className={styles.input}
-          value={password}
-          onChange={handlePasswordChange}
-        />
-        {shouldShowError && mutation.error && (
-          <span className={styles.formError}>{mutation.error.message}</span>
-        )}
+          <FormLabel
+            htmlFor="sign-in-password-input"
+            className={styles.label}
+          >
+            Password
+          </FormLabel>
+          <Input
+            type="password"
+            name="password"
+            id="sign-in-password-input"
+            autoComplete="current-password"
+            autoCapitalize="off"
+            hasError={
+              Boolean(form.errors.password) && Boolean(form.touched.password)
+            }
+            className={styles.input}
+            value={form.values.password}
+            onBlur={form.handleBlur}
+            onChange={handleInputChange}
+          />
+          <FormError className={styles.inputError}>
+            {form.errors.password}
+          </FormError>
+        </FormControl>
+        {form.status && <span className={styles.formError}>{form.status}</span>}
         <Link
           to="/forgot-password"
           className={styles.forgotLink}

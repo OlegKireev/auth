@@ -25,10 +25,15 @@
   margin-bottom: 0.55rem;
 }
 
+.inputError {
+  margin-bottom: 0.75em;
+  color: var(--color-red-600);
+}
+
 .formError {
   display: block;
   margin-bottom: 0.5em;
-  color: #ff6347;
+  color: var(--color-red-600);
 }
 
 .forgotLink {
