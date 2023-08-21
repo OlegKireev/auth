@@ -1,0 +1,74 @@
+.resetPasswordForm {
+  width: 100%;
+  max-width: 320px;
+  padding: 2rem 1rem;
+  border: 1px solid var(--color-gray-200);
+  border-radius: 0.25em;
+  background-color: var(--color-white);
+  box-shadow: var(--shadow-sm);
+}
+
+.title {
+  font-size: 24px;
+  text-align: center;
+
+  &::first-letter {
+    text-transform: uppercase;
+  }
+}
+
+.input {
+  margin-bottom: 0.55rem;
+}
+
+.inputError {
+  margin-bottom: 0.75em;
+  color: var(--color-red-600);
+}
+
+.formError {
+  display: block;
+  margin-bottom: 0.5em;
+  color: var(--color-red-600);
+}
+
+.submit {
+  margin-bottom: 1.5rem;
+  text-transform: capitalize;
+}
+
+.label {
+  margin-bottom: 0.25rem;
+}
+
+.signUpText {
+  display: block;
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.successWrapper {
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
+  text-align: center;
+  animation: fadeIn 0.5s ease;
+}
+
+.successTitle {
+  margin-bottom: 0;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.successIcon {
+  margin-bottom: 1em;
+  color: var(--color-green-500);
+}

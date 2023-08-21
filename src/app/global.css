@@ -26,6 +26,7 @@
   --color-blue-800: #2a4365;
   --color-blue-900: #1a365d;
   --color-red-600: #c53030;
+  --color-green-500: #38a169;
   --main-gradient: linear-gradient(
     to left,
     var(--color-blue-500),

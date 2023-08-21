@@ -5,11 +5,12 @@ import {
 } from 'react-router-dom';
 import {
   HomePage,
+  PageNotFound,
   LoginPage,
+  SignUpPage,
+  ResetPasswordPage,
   AboutPage,
   ContactsPage,
-  SignUpPage,
-  PageNotFound,
   ProfilePage,
 } from '@/pages';
 
@@ -42,6 +43,10 @@ const PUBLIC_ROUTES: RouteObject[] = [
   {
     path: '/sign-up',
     element: <SignUpPage />,
+  },
+  {
+    path: '/reset-password',
+    element: <ResetPasswordPage />,
   },
 ];
 

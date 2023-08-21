@@ -12,7 +12,7 @@ export const LoginPage = function LoginPage() {
       isLoading={!isProfileLoaded}
       type="public"
     >
-      <div className={styles.loginPage}>
+      <div className={styles.page}>
         <LoginForm mode="login" />
       </div>
     </Page>

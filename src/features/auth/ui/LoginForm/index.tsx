@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useLoginMutation, useSignUpMutation } from '../../model';
-import { useLoginForm } from '../../model/useLoginForm';
+import { useLoginMutation, useSignUpMutation, useLoginForm } from '../../model';
 import styles from './styles.module.scss';
 import { useAuthContext } from '@/entities/user';
 import {
@@ -118,7 +117,7 @@ export const LoginForm = function LoginForm({ mode }: LoginFormProps) {
         </FormControl>
         {form.status && <span className={styles.formError}>{form.status}</span>}
         <Link
-          to="/forgot-password"
+          to="/reset-password"
           className={styles.forgotLink}
         >
           Forgot password?

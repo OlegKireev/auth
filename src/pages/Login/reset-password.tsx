@@ -1,9 +1,9 @@
 import styles from './styles.module.scss';
-import { LoginForm } from '@/features/auth';
+import { ResetPasswordForm } from '@/features/auth';
 import { useAuthContext } from '@/entities/user';
 import { Page } from '@/shared';
 
-export const SignUpPage = function SignUpPage() {
+export const ResetPasswordPage = function ResetPasswordPage() {
   const { isLoggedIn, isProfileLoaded } = useAuthContext();
 
   return (
@@ -13,7 +13,7 @@ export const SignUpPage = function SignUpPage() {
       type="public"
     >
       <div className={styles.page}>
-        <LoginForm mode="sign-up" />
+        <ResetPasswordForm />
       </div>
     </Page>
   );
