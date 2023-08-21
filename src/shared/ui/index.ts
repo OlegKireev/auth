@@ -1,6 +1,6 @@
 export * from './Button';
 export * from './Input';
-export * from './Label';
+export * from './Form';
 export * from './Layout';
 export * from './Link';
 export * from './Menu';

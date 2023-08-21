@@ -5,15 +5,15 @@
 .input {
   width: 100%;
   padding: 0.5em 0.75em;
-  border: 1px solid #aaaaaa;
+  border: 1px solid var(--color-gray-400);
   border-radius: 0.125em;
 
   &.rightPadding {
     padding-right: 2.5rem;
   }
 
-  &.hasError {
-    color: #ff6347;
+  &.error {
+    border-color: var(--color-red-600);
   }
 }
 
@@ -29,20 +29,16 @@
   border: none;
   border-radius: 50%;
   background-color: transparent;
-  color: #666666;
+  color: var(--color-gray-500);
   cursor: pointer;
   transform: translateY(-50%);
 
   &:hover,
   &:focus-visible {
-    color: #111111;
+    color: var(--color-gray-900);
   }
 
   &:active {
-    color: #000000;
+    color: var(--color-black);
   }
-}
-
-.error {
-  border-color: #ff0000;
 }

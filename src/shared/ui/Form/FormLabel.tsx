@@ -2,18 +2,18 @@ import { type LabelHTMLAttributes, type ReactNode } from 'react';
 import { clsx } from 'clsx';
 import styles from './styles.module.scss';
 
-interface LabelProps {
+interface FormLabelProps {
   children: ReactNode;
 }
 
-export const Label = function Label({
+export const FormLabel = function FormLabel({
   children,
   ...rest
-}: LabelProps & LabelHTMLAttributes<HTMLLabelElement>) {
+}: FormLabelProps & LabelHTMLAttributes<HTMLLabelElement>) {
   return (
     <label
       {...rest}
-      className={clsx(styles.label, rest.className)}
+      className={clsx(styles.formLabel, rest.className)}
     >
       {children}
     </label>
