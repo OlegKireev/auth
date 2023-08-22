@@ -1,5 +1,10 @@
 import { useNavigate } from 'react-router-dom';
-import { useLoginMutation, useSignUpMutation, useLoginForm } from '../../model';
+import {
+  useLoginMutation,
+  useSignUpMutation,
+  useLoginForm,
+  useLoginByGoogleMutation,
+} from '../../model';
 import styles from './styles.module.scss';
 import { useAuthContext } from '@/entities/user';
 import {
@@ -10,6 +15,7 @@ import {
   FormControl,
   FormError,
   Link,
+  GoogleIcon,
 } from '@/shared';
 
 interface LoginFormProps {
@@ -39,6 +45,8 @@ export const LoginForm = function LoginForm({ mode }: LoginFormProps) {
   const oppositeMode = isLoginMode ? 'sign-up' : 'login';
 
   const { form, handleInputChange } = useLoginForm({ mutation });
+
+  const googleLoginMutation = useLoginByGoogleMutation();
 
   return (
     <div className={styles.loginForm}>
@@ -139,6 +147,17 @@ export const LoginForm = function LoginForm({ mode }: LoginFormProps) {
             {oppositeMode} now
           </Link>
         </span>
+        {mode === 'login' && (
+          <Button
+            leftIcon={<GoogleIcon />}
+            isWide
+            variant="white"
+            className={styles.googleButton}
+            onClick={() => googleLoginMutation.mutate()}
+          >
+            Continue with Google
+          </Button>
+        )}
       </form>
     </div>
   );

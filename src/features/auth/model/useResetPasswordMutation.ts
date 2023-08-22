@@ -1,6 +1,6 @@
 import { type MutationOptions, useMutation } from '@tanstack/react-query';
 import { type AuthError } from 'firebase/auth';
-import { resetPasswordService } from '../api/reset-password';
+import { resetPasswordService } from '../api';
 
 export const useResetPasswordMutation = (
   options?: MutationOptions<boolean, AuthError, string>,
