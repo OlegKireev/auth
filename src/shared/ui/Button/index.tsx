@@ -10,7 +10,7 @@ interface ButtonProps {
   href?: string;
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
-  variant?: 'main' | 'white';
+  variant?: 'main' | 'white' | 'black';
 }
 
 export const Button = function Button({

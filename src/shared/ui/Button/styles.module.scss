@@ -30,6 +30,16 @@
     }
   }
 
+  &.black {
+    background-color: var(--color-black);
+    color: var(--color-white);
+
+    &:hover,
+    &:focus-visible {
+      background-color: var(--color-gray-800);
+    }
+  }
+
   &.loading {
     position: relative;
     color: transparent;
