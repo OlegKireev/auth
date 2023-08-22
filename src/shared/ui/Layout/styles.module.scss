@@ -1,26 +1,40 @@
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
 .layout {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 
-  &.fadeIn {
-    animation: fadeIn 0.3s ease;
+  &.center {
+    justify-content: center;
+    align-items: center;
   }
 }
 
 .wrapper {
   display: flex;
   flex: 1;
+}
+
+.loader {
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  animation: rotate 1s ease infinite;
+}
+
+.main {
+  &.center {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .footer {

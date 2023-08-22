@@ -1,7 +1,8 @@
 import {
   createBrowserRouter,
+  createRoutesFromElements,
   RouterProvider as ReactRouterProvider,
-  type RouteObject,
+  Route,
 } from 'react-router-dom';
 import {
   HomePage,
@@ -13,51 +14,74 @@ import {
   ContactsPage,
   ProfilePage,
 } from '@/pages';
-
-const PRIVATE_ROUTES: RouteObject[] = [
-  {
-    path: '/',
-    element: <HomePage />,
-    errorElement: <PageNotFound />,
-  },
-  {
-    path: '/about',
-    element: <AboutPage />,
-  },
-  {
-    path: '/contacts',
-    element: <ContactsPage />,
-  },
-  {
-    path: '/profile',
-    element: <ProfilePage />,
-  },
-];
-
-const PUBLIC_ROUTES: RouteObject[] = [
-  {
-    path: '/login',
-    element: <LoginPage />,
-    errorElement: <PageNotFound />,
-  },
-  {
-    path: '/sign-up',
-    element: <SignUpPage />,
-  },
-  {
-    path: '/reset-password',
-    element: <ResetPasswordPage />,
-  },
-];
+import { Layout } from '@/shared';
+import { MainNavigation } from '@/features/app-navigation';
+import { useAuthContext } from '@/entities/user';
 
 export const RouterProvider = function RouterProvider() {
-  const routes = [...PRIVATE_ROUTES, ...PUBLIC_ROUTES];
+  const { isProfileLoaded } = useAuthContext();
 
-  const router = createBrowserRouter(routes);
+  const routes = createBrowserRouter(
+    createRoutesFromElements(
+      <>
+        {/** Base Layout */}
+        <Route
+          path="/"
+          element={
+            <Layout
+              navigation={<MainNavigation />}
+              isLoading={!isProfileLoaded}
+            />
+          }
+          errorElement={<PageNotFound />}
+        >
+          <Route
+            path=""
+            element={<HomePage />}
+          />
+          <Route
+            path="/about"
+            element={<AboutPage />}
+          />
+          <Route
+            path="/contacts"
+            element={<ContactsPage />}
+          />
+          <Route
+            path="/profile"
+            element={<ProfilePage />}
+          />
+        </Route>
+        {/** Centred Layout */}
+        <Route
+          path="/"
+          element={
+            <Layout
+              isCentred
+              isLoading={!isProfileLoaded}
+            />
+          }
+        >
+          <Route
+            path="/login"
+            element={<LoginPage />}
+          />
+          <Route
+            path="/sign-up"
+            element={<SignUpPage />}
+          />
+          <Route
+            path="/reset-password"
+            element={<ResetPasswordPage />}
+          />
+        </Route>
+      </>,
+    ),
+  );
 
   return (
     <ReactRouterProvider
-      router={router}
+      router={routes}
       fallbackElement={<PageNotFound />}
     />
   );

@@ -1,20 +1,14 @@
-import { MainNavigation } from '@/features/app-navigation';
 import { useAuthContext } from '@/entities/user';
-import { Layout, Page } from '@/shared';
+import { Page } from '@/shared';
 
 export const ContactsPage = function ContactsPage() {
-  const { isLoggedIn, isProfileLoaded } = useAuthContext();
+  const { isLoggedIn } = useAuthContext();
   return (
     <Page
       isLoggedIn={isLoggedIn}
-      isLoading={!isProfileLoaded}
       type="private"
     >
-      <Layout navigation={<MainNavigation />}>
-        <div>
-          <h1>Contacts</h1>
-        </div>
-      </Layout>
+      <h1>Contacts</h1>
     </Page>
   );
 };
