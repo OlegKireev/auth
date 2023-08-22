@@ -1,7 +1,6 @@
 .loginForm {
-  width: 100%;
-  max-width: 320px;
-  padding: 2rem 1rem;
+  min-width: 320px;
+  padding: 1.5rem 1rem;
   border: 1px solid var(--color-gray-200);
   border-radius: 0.25em;
   background-color: var(--color-white);
