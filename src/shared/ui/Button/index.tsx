@@ -8,6 +8,9 @@ interface ButtonProps {
   isWide?: boolean;
   isLoading?: boolean;
   href?: string;
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
+  variant?: 'main' | 'white';
 }
 
 export const Button = function Button({
@@ -16,6 +19,9 @@ export const Button = function Button({
   isWide = false,
   isLoading = false,
   href = '',
+  variant = 'main',
+  leftIcon = null,
+  rightIcon = null,
   ...rest
 }: ButtonProps & ButtonHTMLAttributes<HTMLButtonElement | HTMLAnchorElement>) {
   if (href) {
@@ -23,12 +29,18 @@ export const Button = function Button({
       <Link
         to={href}
         {...rest}
-        className={clsx(styles.button, rest.className, {
+        className={clsx(styles.button, rest.className, styles[variant], {
           [styles.wide]: isWide,
           [styles.loading]: isLoading,
         })}
       >
+        {leftIcon && (
+          <span className={clsx(styles.icon, styles.left)}>{leftIcon}</span>
+        )}
         {children}
+        {rightIcon && (
+          <span className={clsx(styles.icon, styles.right)}>{rightIcon}</span>
+        )}
       </Link>
     );
   }
@@ -36,7 +48,7 @@ export const Button = function Button({
   return (
     <button
       {...rest}
-      className={clsx(styles.button, rest.className, {
+      className={clsx(styles.button, rest.className, styles[variant], {
         [styles.wide]: isWide,
         [styles.loading]: isLoading,
       })}
@@ -44,7 +56,13 @@ export const Button = function Button({
       // eslint-disable-next-line react/button-has-type
       type={type}
     >
+      {leftIcon && (
+        <span className={clsx(styles.icon, styles.left)}>{leftIcon}</span>
+      )}
       {children}
+      {rightIcon && (
+        <span className={clsx(styles.icon, styles.right)}>{rightIcon}</span>
+      )}
     </button>
   );
 };
